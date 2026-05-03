@@ -37,6 +37,20 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## CreditClaw
+
+**SECURITY WARNING: This API key must be kept private.**
+- API key: cck_live_386c2fa4ab908bbf35eb92a704badb8d112323a05a950091
+- Bot ID: bot_a4e09aba
+- Registered: 2026-05-03 for Sirius (OpenClaw assistant)
+- Owner email: jordi.planas95@gmail.com
+- Environment variable to set: `CREDITCLAW_API_KEY`
+
+**Claim token for owner activation:** opal-SFYX
+**Claim URL:** https://creditclaw.com/claim?token=opal-SFYX
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
 
 ## Related
