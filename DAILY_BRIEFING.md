@@ -29,13 +29,10 @@ Editable implementation notes for Sirius' daily 07:00 briefing to Jordi.
 Task interpretation for this first iteration:
 
 1. Read the `🔴 PENDING (HIGH PRIORITY - URGENT)` section.
-2. List anything that looks critical or urgent, especially:
-   - explicit deadlines
-   - overdue dates
-   - words like urgent/critical/blocker/today/tomorrow
-   - high-priority items with concrete deliverables
-3. Then list the **next top 5 tasks** across pending sections.
-4. Preserve Jordi's original task language when helpful; add short context only if it clarifies priority.
+2. In `Urgent / critical`, list **all unchecked top-level tasks** from that red urgent section. Do not filter them down. Do not include checked tasks. Include nested bullets under an urgent task only when they are part of that task and useful for context.
+3. Read the `🟡 PENDING (IN PROGRESS)` section.
+4. In `Next 5 tasks`, list the **first five unchecked top-level tasks from the yellow in-progress section only**. Do not pull tasks from the red urgent section into this list.
+5. Preserve Jordi's original task language when helpful; add short context only if it clarifies priority.
 
 ## Output format
 
