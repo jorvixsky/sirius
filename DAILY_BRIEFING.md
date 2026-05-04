@@ -36,23 +36,34 @@ Task interpretation for this first iteration:
 
 ## Output format
 
+Use Telegram-friendly Markdown-style formatting. Keep it readable, not noisy.
+
 Use this structure:
 
 ```text
-Bon dia Jordi — briefing ràpid:
+☀️ **Bon dia Jordi — briefing ràpid**
 
-Weather — Granollers
+🌦️ **Weather — Granollers**
+- _Ara:_ ...
+- _Avui:_ ...
+- _Nota:_ ...
+
+🚨 **Urgent / critical**
+- ...
 - ...
 
-Urgent / critical
-- ...
-
-Next 5 tasks
+📌 **Next 5 tasks — in progress**
 1. ...
 2. ...
 3. ...
 4. ...
 5. ...
 ```
+
+Formatting rules:
+- Use **bold** for section headers and truly important labels.
+- Use _italics_ for small labels like _Ara_, _Avui_, _Nota_ or short context.
+- Use emojis only at section starts or for genuinely useful emphasis; avoid clutter.
+- Keep task text mostly as Jordi wrote it.
 
 If no urgent/critical task is found, say so plainly and still provide the next 5 tasks.
