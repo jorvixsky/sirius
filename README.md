@@ -147,13 +147,6 @@ git push
 - Verify OpenClaw version compatibility
 - Check model provider API keys
 
-## 📞 Support
-
-For issues with Sirius or this backup system, contact:
-- **Owner**: Jordi Planas
-- **Location**: Barcelona, Spain
-- **Work**: Barcelona Supercomputing Center (BSC)
-
 ---
 
-*Last updated: 2026-05-04 | Backup commit: 59f0c5b*
+*Last updated: 2026-05-04 | Backup commit: 82f5a5c*
