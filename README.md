@@ -2,10 +2,13 @@
 
 This repository contains the complete workspace and configuration backup for Sirius, an OpenClaw AI assistant.
 
+It is intended to be a **private, drop-in recovery image**: if Sirius breaks or the host is lost, this repo should contain enough workspace state, cron wrappers, memory, skills, and local conventions to restore the assistant quickly.
+
 ## Repository Purpose
 
 - **Daily automatic backups**: Configuration, memory files, and skills are backed up daily via cron
 - **Disaster recovery**: Quickly restore your AI assistant after system failure
+- **Drop-in replacement**: Preserve scripts, memory, cron helpers, logs/state, and skill files so a rebuilt Sirius behaves like the current one
 - **Version history**: Track changes to your assistant's personality, tools, and memory over time
 
 ## What's Included
@@ -22,6 +25,14 @@ This repository contains the complete workspace and configuration backup for Sir
 - `avatars/` – Custom avatar images
 - `.clawhub/` – Skill registry cache
 - `.creditclaw/` – CreditClaw API configuration
+- `cron_*.sh` – Cron wrapper scripts used by OpenClaw scheduled tasks
+- `.env.example` – Environment variable template for secrets and service settings
+
+## Important Current Behaviors
+
+- **Quiet monitoring**: Cron jobs should not notify Jordi just because they ran. They only surface relevant events: new email, low OpenRouter credits, update/failure, or backup activity/errors.
+- **Email Bcc rule**: Sirius should always Bcc Jordi at `hola@jordiplanas.cat` on emails it sends. This is documented in `USER.md`/`MEMORY.md` and represented by `SIRIUS_DEFAULT_BCC` in `.env.example`.
+- **Secret handling**: Live secrets should be supplied via environment variables or `~/.openclaw/secrets/*` fallback files, not hardcoded in active scripts. Current cron wrappers support fallback files for the Sirius email password and OpenRouter management key.
 
 ## 📋 Recovery Guide: After a Catastrophic Loss
 
@@ -62,13 +73,41 @@ openclaw configure --mode local
 
 ### 4. Restore API Keys and Secrets
 
-Some sensitive data may need manual restoration:
+Some sensitive data needs manual restoration. Start from the template:
 
-1. **CreditClaw API Key**: Restore from secure storage or regenerate if needed
+```bash
+cd ~/.openclaw/workspace
+cp .env.example .env
+$EDITOR .env
+```
 
-2. **OpenRouter API Key**: Configure via OpenClaw auth profiles
+Then export these variables in your shell/service environment, or copy the values into the equivalent OpenClaw/systemd/cron environment.
 
-3. **Telegram Bot Token**: Set in OpenClaw config
+Required or commonly used values:
+
+1. **Email account**: `SIRIUS_EMAIL_PASSWORD`, plus SMTP/IMAP settings if they change. Fallback file supported by `cron_email_monitor.sh`:
+
+   ```bash
+   mkdir -p ~/.openclaw/secrets
+   printf '%s\n' 'EMAIL-PASSWORD-REPLACE-ME' > ~/.openclaw/secrets/sirius_email_password
+   chmod 600 ~/.openclaw/secrets/sirius_email_password
+   ```
+
+2. **Jordi Bcc**: `SIRIUS_DEFAULT_BCC=hola@jordiplanas.cat`
+
+3. **OpenRouter management key**: `OPENROUTER_MANAGEMENT_KEY`, or this fallback file:
+
+   ```bash
+   mkdir -p ~/.openclaw/secrets
+   printf '%s\n' 'OPENROUTER-MANAGEMENT-KEY-REPLACE-ME' > ~/.openclaw/secrets/openrouter_management_key
+   chmod 600 ~/.openclaw/secrets/openrouter_management_key
+   ```
+
+4. **CreditClaw API Key**: Restore from secure storage or regenerate if needed
+
+5. **OpenRouter chat/model API key**: Configure via OpenClaw auth profiles
+
+6. **Telegram Bot Token**: Set in OpenClaw config
 
 ### 5. Verify and Test
 
@@ -105,15 +144,16 @@ clawdhub update --all
 ## 🔄 Daily Backup Schedule
 
 - **01:00 UTC**: Full workspace backup (this repository)
-- **04:00 Europe/Madrin**: Auto-update routine (OpenClaw + skills)
+- **04:00 Europe/Madrid**: Auto-update routine (OpenClaw + skills)
 
-Backups run automatically via OpenClaw cron jobs. The `daily-sirius-config-backup` job commits all changes and pushes to GitHub.
+Backups run automatically via OpenClaw cron jobs. The `daily-sirius-config-backup` job runs `cron_daily_backup.sh`, commits all workspace changes, and pushes to GitHub. Because this repo is private and meant for disaster recovery, it intentionally captures broad workspace state; however, provider push protection may still reject obvious secret literals, so active scripts prefer environment variables or `~/.openclaw/secrets/*` for live secrets.
 
 ## ⚠️ Security Notes
 
-- **Private data**: This repository contains API keys and configuration. Keep it private!
+- **Private data**: This repository may contain sensitive configuration and operational history. Keep it private.
+- **Secrets**: Prefer `.env`/service environment variables or `~/.openclaw/secrets/*`; `.env.example` is safe to commit and contains placeholders only.
 - **GitHub token**: Uses a fine-grained personal access token for push access
-- **Sensitive files**: Review `.gitignore` to ensure no secrets are accidentally committed
+- **Push protection**: GitHub may block commits containing recognized secret patterns. If that happens, remove the literal secret from the commit history before pushing.
 
 ## 🛠️ Manual Backup
 
@@ -121,9 +161,7 @@ To trigger a manual backup:
 
 ```bash
 cd ~/.openclaw/workspace
-git add -A
-git commit -m "Manual backup"
-git push
+./cron_daily_backup.sh
 ```
 
 ## 📈 Monitoring
@@ -146,4 +184,4 @@ git push
 
 ---
 
-*Last updated: 2026-05-04 | Backup commit: b34d85b*
+*Last updated: 2026-05-04 | Backup commit: 39782c5*

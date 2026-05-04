@@ -4,15 +4,16 @@ Email utilities for Sirius AI Assistant.
 Provides easy functions for sending emails from scripts.
 """
 import smtplib
+import os
 from email.message import EmailMessage
 from typing import List, Optional
 
 # Default configuration
-DEFAULT_EMAIL = "sirius@jordiplanas.cat"
-DEFAULT_PASSWORD = "@0OmXOSLstaDFD17"
-DEFAULT_SMTP_SERVER = "smtp.jordiplanas.cat"
-DEFAULT_SMTP_PORT = 587
-DEFAULT_BCC_EMAIL = "hola@jordiplanas.cat"
+DEFAULT_EMAIL = os.environ.get("SIRIUS_EMAIL", "sirius@jordiplanas.cat")
+DEFAULT_PASSWORD = os.environ.get("SIRIUS_EMAIL_PASSWORD", "")
+DEFAULT_SMTP_SERVER = os.environ.get("SIRIUS_SMTP_SERVER", "smtp.jordiplanas.cat")
+DEFAULT_SMTP_PORT = int(os.environ.get("SIRIUS_SMTP_PORT", "587"))
+DEFAULT_BCC_EMAIL = os.environ.get("SIRIUS_DEFAULT_BCC", "hola@jordiplanas.cat")
 
 def send_email(
     to_email: str,

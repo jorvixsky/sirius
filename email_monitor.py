@@ -18,7 +18,7 @@ from email.header import decode_header, make_header
 from pathlib import Path
 
 EMAIL = os.environ.get("SIRIUS_EMAIL", "sirius@jordiplanas.cat")
-PASSWORD = os.environ.get("SIRIUS_EMAIL_PASSWORD", "@0OmXOSLstaDFD17")
+PASSWORD = os.environ.get("SIRIUS_EMAIL_PASSWORD", "").strip()
 IMAP_SERVER = os.environ.get("SIRIUS_IMAP_SERVER", "mail.jordiplanas.cat")
 IMAP_PORT = int(os.environ.get("SIRIUS_IMAP_PORT", "993"))
 

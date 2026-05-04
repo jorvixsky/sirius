@@ -3,18 +3,19 @@
 Send a romantic poem to Jordi's girlfriend.
 """
 import smtplib
+import os
 from email.message import EmailMessage
 from datetime import datetime
 
 # Email configuration
-SENDER_EMAIL = 'sirius@jordiplanas.cat'
-SENDER_PASSWORD = '@0OmXOSLstaDFD17'
+SENDER_EMAIL = os.environ.get('SIRIUS_EMAIL', 'sirius@jordiplanas.cat')
+SENDER_PASSWORD = os.environ.get('SIRIUS_EMAIL_PASSWORD', '')
 RECIPIENT_EMAIL = 'laiamonente1@gmail.com'
-JORDI_BCC_EMAIL = 'hola@jordiplanas.cat'
+JORDI_BCC_EMAIL = os.environ.get('SIRIUS_DEFAULT_BCC', 'hola@jordiplanas.cat')
 
 # SMTP configuration
-SMTP_SERVER = 'smtp.jordiplanas.cat'
-SMTP_PORT = 587
+SMTP_SERVER = os.environ.get('SIRIUS_SMTP_SERVER', 'smtp.jordiplanas.cat')
+SMTP_PORT = int(os.environ.get('SIRIUS_SMTP_PORT', '587'))
 
 # Romantic poem for Liam - Second poem
 POEM = """My Dearest Liam,
