@@ -16,6 +16,10 @@
     "himalaya-skill": {
       "version": "1.0.0",
       "installedAt": 1777902281345
+    },
+    "obsidian": {
+      "version": "1.0.0",
+      "installedAt": 1777934140149
     }
   }
 }

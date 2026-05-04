@@ -33,6 +33,7 @@ It is intended to be a **private, drop-in recovery image**: if Sirius breaks or 
 - **Quiet monitoring**: Cron jobs should not notify Jordi just because they ran. They only surface relevant events: new email, low OpenRouter credits, update/failure, or backup activity/errors.
 - **Email Bcc rule**: Sirius should always Bcc Jordi at `hola@jordiplanas.cat` on emails it sends. This is documented in `USER.md`/`MEMORY.md` and represented by `SIRIUS_DEFAULT_BCC` in `.env.example`.
 - **Secret handling**: Live secrets should be supplied via environment variables or `~/.openclaw/secrets/*` fallback files, not hardcoded in active scripts. Current cron wrappers support fallback files for the Sirius email password and OpenRouter management key.
+- **Obsidian access**: Sirius has bidirectional Obsidian Sync access to Jordi's `jordi-obsidian` vault. Local vault path: `/home/sirius/obsidian/vaults/main`. Treat vault contents as private; do not expose notes outside Jordi's direct chats unless explicitly asked.
 
 ## 📋 Recovery Guide: After a Catastrophic Loss
 
@@ -109,7 +110,66 @@ Required or commonly used values:
 
 6. **Telegram Bot Token**: Set in OpenClaw config
 
-### 5. Verify and Test
+### 5. Restore Obsidian Sync Access
+
+Sirius uses the official `obsidian-headless` client plus `obsidian-cli` for local Markdown operations.
+
+Install tools:
+
+```bash
+npm install -g obsidian-headless
+brew install yakitrak/yakitrak/obsidian-cli
+```
+
+Create the vault folder and log in:
+
+```bash
+mkdir -p /home/sirius/obsidian/vaults/main
+ob login
+ob sync-list-remote
+```
+
+Set up Jordi's remote vault in bidirectional mode:
+
+```bash
+ob sync-setup --path /home/sirius/obsidian/vaults/main --vault "jordi-obsidian" --device-name "sirius-vps"
+ob sync-config --path /home/sirius/obsidian/vaults/main --mode bidirectional --conflict-strategy merge
+ob sync --path /home/sirius/obsidian/vaults/main
+```
+
+If Obsidian asks for the E2E encryption password, Jordi must provide it interactively. Do **not** store that password in this repository.
+
+Configure `obsidian-cli` to use the synced vault:
+
+```bash
+mkdir -p ~/.config/obsidian /home/sirius/obsidian/vaults/main/.obsidian
+cat > ~/.config/obsidian/obsidian.json <<'JSON'
+{
+  "vaults": {
+    "12e880e8c1bcf976868d8047c5e1dd64": {
+      "path": "/home/sirius/obsidian/vaults/main",
+      "open": true
+    }
+  }
+}
+JSON
+obsidian-cli set-default main
+obsidian-cli list
+```
+
+Run continuous sync after setup:
+
+```bash
+PATH="$HOME/.npm-global/bin:$HOME/.npm-global/lib/node_modules/.bin:/home/linuxbrew/.linuxbrew/bin:$PATH" \
+  ob sync --path /home/sirius/obsidian/vaults/main --continuous \
+  >> /home/sirius/.openclaw/workspace/logs/obsidian-sync-continuous.log 2>&1 &
+```
+
+The current host also has an `@reboot` crontab entry that starts this exact continuous sync command after reboot. Logs go to `logs/obsidian-sync-continuous.log`.
+
+Sensitive Obsidian client state lives outside this repo in `~/.config/obsidian-headless/` and includes auth/encryption material. For full disaster recovery, back it up only to a secure secrets backup, or rerun `ob login` + `ob sync-setup` and provide the E2E password again.
+
+### 6. Verify and Test
 
 ```bash
 # Check OpenClaw status
@@ -121,7 +181,7 @@ openclaw gateway start
 # Test with a message via Telegram
 ```
 
-### 6. Restore Cron Jobs
+### 7. Restore Cron Jobs
 
 The backup includes cron job definitions in `cron/jobs.json`. To restore scheduled tasks:
 
@@ -134,7 +194,7 @@ openclaw cron list
 # - Daily auto-update at 04:00 Europe/Madrid
 ```
 
-### 7. Update Skills
+### 8. Update Skills
 
 ```bash
 # Update all skills to latest versions

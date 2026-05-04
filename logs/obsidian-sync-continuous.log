@@ -1,0 +1,15 @@
+Starting sync:
+  Vault: jordi-obsidian (12e880e8c1bcf976868d8047c5e1dd64)
+  Location: /home/sirius/obsidian/vaults/main
+  Sync mode: bidirectional
+  Conflict strategy: merge
+  Device name: sirius-vps
+  Config directory: .obsidian
+  File types: image, audio, pdf, video
+  Configs: none (config syncing disabled)
+Connecting...
+Connection successful. Detecting changes...
+Fully synced
+Fully synced
+Fully synced
+Fully synced
