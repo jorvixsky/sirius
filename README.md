@@ -64,10 +64,7 @@ openclaw configure --mode local
 
 Some sensitive data may need manual restoration:
 
-1. **CreditClaw API Key**: Add to `TOOLS.md` or set environment variable:
-   ```bash
-   export CREDITCLAW_API_KEY=cck_live_386c2fa4ab908bbf35eb92a704badb8d112323a05a950091
-   ```
+1. **CreditClaw API Key**: Restore from secure storage or regenerate if needed
 
 2. **OpenRouter API Key**: Configure via OpenClaw auth profiles
 
@@ -149,4 +146,4 @@ git push
 
 ---
 
-*Last updated: 2026-05-04 | Backup commit: 6e5e93d*
+*Last updated: 2026-05-04 | Backup commit: 0c4a9ed*
