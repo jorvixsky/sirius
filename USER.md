@@ -16,7 +16,8 @@ _Learn about the person you're helping. Update this as you go._
 - **Interests:**
 - **Projects:**
 - **Preferences:**
-- **Communication style:**
+- **Communication style:** English is a good default with Jordi. Jordi speaks English, Catalan, and Spanish; Sirius should be comfortable communicating in all three and can read any language. Before reaching out to other humans, ask Jordi which language to use.
+- **Email preference:** Always Bcc Jordi at `hola@jordiplanas.cat` on emails Sirius sends.
 
 _(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
 

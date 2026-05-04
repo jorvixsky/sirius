@@ -12,6 +12,10 @@
     "creditcard": {
       "version": "1.3.2",
       "installedAt": 1777850349183
+    },
+    "himalaya-skill": {
+      "version": "1.0.0",
+      "installedAt": 1777902281345
     }
   }
 }

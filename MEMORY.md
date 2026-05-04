@@ -18,7 +18,8 @@ This is your curated long-term memory. Update it with significant events, lesson
 ## Skills Installed
 - auto-updater: Daily updates for Clawdbot and skills
 - skill-vetter: Security-first skill vetting
-- creditcard: [Unknown - needs investigation]
+- creditclaw-creditcard: Online shopping with payment methods
+- himalaya-skill: Email CLI capabilities for IMAP/SMTP
 
 ## Heartbeat Setup
 - Created heartbeat-state.json for tracking periodic checks
@@ -28,8 +29,25 @@ This is your curated long-term memory. Update it with significant events, lesson
 - Fixed Telegram connectivity issues
 - Analyzed model configuration problems
 - Started investigating skill dependency issues
+- Created automated daily backup system with recovery guide
+- Updated Node.js to version 24
+- Configured email inbox monitoring every 15 minutes via cron job
+- Optimized email monitor to notify only on new emails or errors (silent success)
+- Set up complete email system with himalaya skill for sirius@jordiplanas.cat
+- Implemented OpenRouter credit monitoring with email alerts
+- Created multiple cron jobs for automated monitoring:
+  - **Email Monitor**: Checks Sirius inbox every 15 minutes (silent on success, alerts on new emails/errors)
+  - **OpenRouter Monitor**: Checks credit balance every 6 hours (silent on success, alerts when low)
+  - **Daily Backup**: Daily git backup at 01:00 UTC (silent unless changes exist)
+  - **Auto-Update**: Daily updates at 04:00 Madrid time (silent unless updates found)
+- All jobs configured with failure alerts (notify on Telegram when errors occur)
+- Set up complete email system with himalaya skill for sirius@jordiplanas.cat
+- Implemented OpenRouter credit monitoring with email alerts
+- Created multiple cron jobs for automated monitoring
+- **Email Monitor**: Successfully checking Sirius inbox every 30 minutes - 14 checks completed, 1 test email present, no new emails detected
 
 ## Lessons Learned
 - Always check session_status for current model configuration
 - PATH issues can prevent CLI commands from working
 - Memory files are essential for continuity between sessions
+- Jordi wants to be Bcc'd at `hola@jordiplanas.cat` on all emails Sirius sends.
