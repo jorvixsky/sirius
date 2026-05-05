@@ -22,8 +22,9 @@ skill_code=$?
 messages=()
 if [[ $npm_code -ne 0 ]]; then
   messages+=("❌ OpenClaw npm update failed:" "$(printf '%s' "$npm_output" | tail -n 20)")
-elif [[ "$before_oc" != "$after_oc" ]]; then
-  messages+=("📦 OpenClaw updated: $before_oc → $after_oc")
+# Success update messages are suppressed; only errors are reported.
+# elif [[ "$before_oc" != "$after_oc" ]]; then
+#   messages+=("📦 OpenClaw updated: $before_oc → $after_oc")
 fi
 
 if [[ $doctor_code -ne 0 ]]; then
@@ -54,10 +55,10 @@ data['last_check_at']=datetime.datetime.now(datetime.timezone.utc).isoformat()
 p.write_text(json.dumps(data, indent=2, sort_keys=True)+'\n')
 PY
 else
-  # Only report actual update-ish output, not “already up to date”.
-  if grep -Eiq '(^|[^a-z])(updated|installed|upgraded)([^a-z]|$)' <<<"$skill_output"; then
-    messages+=("🔄 Skills updated:" "$(printf '%s' "$skill_output" | grep -Ei 'updated|installed|upgraded' | head -n 20)")
-  fi
+  # Success update messages are suppressed; only errors are reported.
+  # if grep -Eiq '(^|[^a-z])(updated|installed|upgraded)([^a-z]|$)' <<<"$skill_output"; then
+  #   messages+=("🔄 Skills updated:" "$(printf '%s' "$skill_output" | grep -Ei 'updated|installed|upgraded' | head -n 20)")
+  # fi
   python3 - <<'PY' "$STATE_FILE" >/dev/null 2>&1 || true
 import json, pathlib, datetime, sys
 p=pathlib.Path(sys.argv[1])
