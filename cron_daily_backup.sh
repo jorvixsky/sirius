@@ -39,5 +39,5 @@ if [[ $push_code -ne 0 ]]; then
   exit $push_code
 fi
 
-# Relevant because a backup actually happened; cron prompt decides whether to notify Jordi.
-echo "✅ Sirius workspace backup committed and pushed ($changed_count changed file(s))."
+# Success: output nothing. Only errors produce output.
+# No success message, as per Jordi's request to notify only on errors.
