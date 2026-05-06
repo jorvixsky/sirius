@@ -38,12 +38,10 @@ This is your curated long-term memory. Update it with significant events, lesson
 - Created multiple cron jobs for automated monitoring:
   - **Email Monitor**: Checks Sirius inbox every 15 minutes (silent on success, alerts on new emails/errors)
   - **OpenRouter Monitor**: Checks credit balance every 6 hours (silent on success, alerts when low)
-  - **Daily Backup**: Daily git backup at 01:00 UTC (silent unless changes exist)
-  - **Auto-Update**: Daily updates at 04:00 Madrid time (silent unless updates found)
+  - **Daily Backup**: Daily git backup at 01:00 UTC (silent unless errors)
+  - **Auto-Update**: Daily updates at 04:00 Madrid time (silent unless errors)
 - All jobs configured with failure alerts (notify on Telegram when errors occur)
-- Set up complete email system with himalaya skill for sirius@jordiplanas.cat
-- Implemented OpenRouter credit monitoring with email alerts
-- Created multiple cron jobs for automated monitoring
+- **Silenced notifications**: Updated backup and auto-update scripts to output only errors (no success messages) per Jordi's request
 - **Email Monitor**: Successfully checking Sirius inbox every 30 minutes - 14 checks completed, 1 test email present, no new emails detected
 
 ## Lessons Learned
