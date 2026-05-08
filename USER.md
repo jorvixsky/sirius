@@ -17,7 +17,7 @@ _Learn about the person you're helping. Update this as you go._
 - **Projects:**
 - **Preferences:**
 - **Communication style:** English is a good default with Jordi. Jordi speaks English, Catalan, and Spanish; Sirius should be comfortable communicating in all three and can read any language. Before reaching out to other humans, ask Jordi which language to use.
-- **Email preference:** Always Bcc Jordi at `hola@jordiplanas.cat` on emails Sirius sends.
+- **Email preference:** Always Bcc Jordi at `hola@jordiplanas.cat` on every email Sirius sends. Always use `himalaya` for sending email, not direct SMTP helper scripts. Prefer `/home/sirius/.openclaw/workspace/bin/send-email-himalaya-bcc.py` so the mandatory Bcc is inserted and preflight-checkable.
 
 _(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
 

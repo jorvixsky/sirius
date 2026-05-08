@@ -48,4 +48,5 @@ This is your curated long-term memory. Update it with significant events, lesson
 - Always check session_status for current model configuration
 - PATH issues can prevent CLI commands from working
 - Memory files are essential for continuity between sessions
-- Jordi wants to be Bcc'd at `hola@jordiplanas.cat` on all emails Sirius sends.
+- Jordi wants to be Bcc'd at `hola@jordiplanas.cat` on all emails Sirius sends; treat this as mandatory and verify before sending.
+- Jordi explicitly prefers that Sirius always use `himalaya` for sending email, not direct SMTP helper scripts. Prefer `/home/sirius/.openclaw/workspace/bin/send-email-himalaya-bcc.py` because it inserts the mandatory Bcc and pipes the message through `himalaya message send`.
