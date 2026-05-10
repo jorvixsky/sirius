@@ -7,7 +7,8 @@ VAULT_PATH="/home/sirius/obsidian/vaults/main"
 TODO_NOTE="$VAULT_PATH/Work/Global To-dos.md"
 LOCATION="Granollers,Spain"
 
-printf '=== Daily briefing context generated at %s ===\n\n' "$(date -Is)"
+printf '=== Daily briefing context generated at %s ===\n' "$(date -Is)"
+printf 'Europe/Madrid local date: %s (%s)\n\n' "$(TZ=Europe/Madrid date +%F)" "$(TZ=Europe/Madrid date +%A)"
 
 printf '=== Weather source: wttr.in (%s, metric) ===\n' "$LOCATION"
 # Compact current conditions + 3-day JSON-derived daily summary.
